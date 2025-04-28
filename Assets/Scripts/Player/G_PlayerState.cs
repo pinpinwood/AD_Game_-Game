@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class G_PlayerState:MonoBehaviour
 {
@@ -7,6 +8,10 @@ public class G_PlayerState:MonoBehaviour
     [SerializeField] private int G_ModifyStrength=1;
     [SerializeField] private int G_MaxModifyStrength=120;
     [SerializeField] private GameObject G_TypeOfWeapon;
+    public Transform spawnArea;
+    private int maxPlayerCount=30;
+    [SerializeField] private int playerCount=1;
+    private int spacing = 2;
 
     private void Awake()
     {
@@ -23,6 +28,7 @@ public class G_PlayerState:MonoBehaviour
         {
             GameObject newMember = Instantiate(G_PlayerObj, playerGroup);
             members.Add(newMember);
+            playerCount = members.Count;
         }
         UpdateFormation();
     }
@@ -41,11 +47,16 @@ public class G_PlayerState:MonoBehaviour
 
     void UpdateFormation()
     {
-        for (int i = 0; i < members.Count; i++)
+        if (playerCount < maxPlayerCount)
         {
-            float spacing = 1.5f;
-            Vector3 newPos = new Vector3((i % 5) * spacing, 0, -(i / 5) * spacing); // 橫排5人
-            members[i].transform.localPosition = newPos;
+            GameObject newPlayer = Instantiate(G_PlayerObj);
+
+            // 根據目前的玩家數量計算新角色的位置
+            Vector3 spawnPosition = spawnArea.position + new Vector3(playerCount * spacing, 0, 0);  // 排列在 x 軸上
+
+            newPlayer.transform.position = spawnPosition;
         }
+        else
+            playerCount = maxPlayerCount;
     }
 }
