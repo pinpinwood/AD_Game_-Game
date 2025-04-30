@@ -1,62 +1,79 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class G_PlayerState:MonoBehaviour
+public class G_PlayerState : MonoBehaviour
 {
+    [Header("è§’è‰²è¨­å®š")]
     [SerializeField] private GameObject G_PlayerObj;
-    [SerializeField] private int G_ModifyStrength=1;
-    [SerializeField] private int G_MaxModifyStrength=120;
+    [SerializeField] private int G_ModifyStrength = 1;
+    [SerializeField] private int G_MaxModifyStrength = 120;
     [SerializeField] private GameObject G_TypeOfWeapon;
+
+    [Header("ç”Ÿæˆè¨­å®š")]
     public Transform spawnArea;
-    private int maxPlayerCount=30;
-    [SerializeField] private int playerCount=1;
-    private int spacing = 2;
+    public Transform playerGroup;
 
-    private void Awake()
+    private int G_MaxPlayerCount = 30;
+    private List<GameObject> G_Members = new List<GameObject>();
+
+    [Header("æ’åˆ—åƒæ•¸")]
+    [SerializeField] private int G_MaxPerRow = 5;
+    [SerializeField] private float G_Spacing = 1.5f;
+    [SerializeField] private float G_UniformScale = 0.7f;
+
+    void Start()
     {
-        //G_PlayerObj=GetComponent<GameObject>();
+        // å‡è¨­ä¸€é–‹å§‹å°±æœ‰ä¸€å€‹è§’è‰²
+        if (G_Members.Count == 0 && G_PlayerObj != null)
+        {
+            GameObject startPlayer = Instantiate(G_PlayerObj, playerGroup);
+            G_Members.Add(startPlayer);
+            UpdateFormation();
+        }
     }
-
-    public Transform playerGroup; // ¥Àª«¥ó
-
-    private List<GameObject> members = new List<GameObject>();
 
     public void AddMembers(int count)
     {
         for (int i = 0; i < count; i++)
         {
-            GameObject newMember = Instantiate(G_PlayerObj, playerGroup);
-            members.Add(newMember);
-            playerCount = members.Count;
+            if (G_Members.Count >= G_MaxPlayerCount) break;
+
+            GameObject newPlayer = Instantiate(G_PlayerObj, playerGroup);
+            G_Members.Add(newPlayer);
         }
+
         UpdateFormation();
     }
 
     public void RemoveMembers(int count)
     {
-        int removeCount = Mathf.Min(count, members.Count);
+        int removeCount = Mathf.Min(count, G_Members.Count);
         for (int i = 0; i < removeCount; i++)
         {
-            GameObject toRemove = members[members.Count - 1];
-            members.RemoveAt(members.Count - 1);
+            GameObject toRemove = G_Members[G_Members.Count - 1];
+            G_Members.RemoveAt(G_Members.Count - 1);
             Destroy(toRemove);
         }
+
         UpdateFormation();
     }
 
     void UpdateFormation()
     {
-        if (playerCount < maxPlayerCount)
+        for (int i = 0; i < G_Members.Count; i++)
         {
-            GameObject newPlayer = Instantiate(G_PlayerObj);
+            int row = i / G_MaxPerRow;
+            int col = i % G_MaxPerRow;
 
-            // ®Ú¾Ú¥Ø«eªºª±®a¼Æ¶q­pºâ·s¨¤¦âªº¦ì¸m
-            Vector3 spawnPosition = spawnArea.position + new Vector3(playerCount * spacing, 0, 0);  // ±Æ¦C¦b x ¶b¤W
+            int countInRow = Mathf.Min(G_MaxPerRow, G_Members.Count - row * G_MaxPerRow);
+            float rowWidth = (countInRow - 1) * G_Spacing;
+            float xOffset = col * G_Spacing - rowWidth / 2f;
+            float zOffset = row * G_Spacing;  // âœ… æ”¹æˆå¾€å¾Œæ’åˆ—
 
-            newPlayer.transform.position = spawnPosition;
+            Vector3 spawnPos = spawnArea.position + new Vector3(xOffset, 0f, zOffset);
+            GameObject player = G_Members[i];
+            player.transform.position = spawnPos;
+            player.transform.localScale = Vector3.one * G_UniformScale;
         }
-        else
-            playerCount = maxPlayerCount;
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class G_SpawnPoint : MonoBehaviour
 {
+    [Header("出生點設定")]
     public Transform[] spawnPoints; 
     public GameObject wallPrefab;
     public GameObject enemyPrefab;
@@ -37,9 +38,9 @@ public class G_SpawnPoint : MonoBehaviour
         G_WallState wallScript = newWall.GetComponent<G_WallState>();
         wallScript.SetValue(randomValue);
 
-        // 生成敵人（稍微偏移一下避免重疊）
-        //  Vector3 enemySpawnPos = chosenPoint.position + new Vector3(1f, 0, 0); // X軸偏一點
-        //   Instantiate(enemyPrefab, enemySpawnPos, Quaternion.identity);
+        // 生成敵人
+        Vector3 enemySpawnPos = chosenPoint.position + new Vector3(1f, 0, 0); // X軸偏一點
+        Instantiate(enemyPrefab, enemySpawnPos, Quaternion.identity);
         timer = 0f;
     }
 }

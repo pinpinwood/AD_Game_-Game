@@ -6,9 +6,11 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class G_WallState : MonoBehaviour
 {
+    [Header("Àð¾À³]©w")]
     [SerializeField] private bool G_isNegative;
     public int G_Wallint;
 
+    [Header("Àð¾ÀUI(¦rÅé¡^")]
     [SerializeField] private TextMeshProUGUI valueText;
 
     private void Awake()

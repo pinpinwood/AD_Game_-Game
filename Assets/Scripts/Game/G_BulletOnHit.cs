@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class G_BulletOnHit : MonoBehaviour
 {
+    [Header("¤l¼u³]©w")]
     public float range;
     public ParticleSystem projectileEffect;
     

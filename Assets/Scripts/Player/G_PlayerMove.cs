@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class G_PlayerMove : MonoBehaviour
 {
+    [Header("角色移動參數")]
     [SerializeField] private float _acceleration = 5f;
     [SerializeField] private float _deceleration = 5f;
     [SerializeField] private float _maxspeed = 20f;
