@@ -14,7 +14,9 @@ public class G_EnimyState:MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            Debug.Log("You Dead");
+            //Debug.Log("You Dead");
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

@@ -14,7 +14,7 @@ public class G_BulletOnHit : MonoBehaviour
         {
             G_WallState G_State=other.GetComponent<G_WallState>();
             G_State.AddWallint();
-            print("add!");
+            //print("add!");
             Destroy(this.gameObject);
         }
     }

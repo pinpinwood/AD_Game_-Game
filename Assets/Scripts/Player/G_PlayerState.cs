@@ -68,7 +68,7 @@ public class G_PlayerState : MonoBehaviour
             int countInRow = Mathf.Min(G_MaxPerRow, G_Members.Count - row * G_MaxPerRow);
             float rowWidth = (countInRow - 1) * G_Spacing;
             float xOffset = col * G_Spacing - rowWidth / 2f;
-            float zOffset = row * G_Spacing;  // ✅ 改成往後排列
+            float zOffset = row * G_Spacing;  
 
             Vector3 spawnPos = spawnArea.position + new Vector3(xOffset, 0f, zOffset);
             GameObject player = G_Members[i];
