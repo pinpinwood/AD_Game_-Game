@@ -10,12 +10,13 @@ public class G_EnimyState:MonoBehaviour
         Vector3 newPos = transform.position + transform.forward * -speed * Time.deltaTime;
         this.transform.position = newPos;
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision other)
     {
-        if (collision.transform.tag == "Player")
+        if (other.transform.tag == "Player")
         {
             //Debug.Log("You Dead");
-            Destroy(collision.gameObject);
+            G_PlayerState g_Player = other.gameObject.GetComponentInParent<G_PlayerState>();
+                g_Player.RemoveMembers(-1);
             Destroy(this.gameObject);
         }
     }

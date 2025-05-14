@@ -47,7 +47,7 @@ public class G_PlayerState : MonoBehaviour
 
     public void RemoveMembers(int count)
     {
-        int removeCount = Mathf.Min(count, G_Members.Count);
+        int removeCount = G_Members.Count + count;
         for (int i = 0; i < removeCount; i++)
         {
             GameObject toRemove = G_Members[G_Members.Count - 1];
