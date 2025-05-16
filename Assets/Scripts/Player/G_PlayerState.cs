@@ -48,8 +48,10 @@ public class G_PlayerState : MonoBehaviour
     public void RemoveMembers(int count)
     {
         int removeCount = G_Members.Count + count;
-        for (int i = 0; i < removeCount; i++)
+        for (int i = 0; i < count; i++)
         {
+            if (G_Members.Count == 1) break;
+
             GameObject toRemove = G_Members[G_Members.Count - 1];
             G_Members.RemoveAt(G_Members.Count - 1);
             Destroy(toRemove);
@@ -73,7 +75,12 @@ public class G_PlayerState : MonoBehaviour
             Vector3 spawnPos = spawnArea.position + new Vector3(xOffset, 0f, zOffset);
             GameObject player = G_Members[i];
             player.transform.position = spawnPos;
-            player.transform.localScale = Vector3.one * G_UniformScale;
+            player.transform.localScale = Vector3.one * G_UniformScale;           
         }
+        if (G_Members.Count <= 3)
+            GetComponentInParent<G_PlayerMove>().largeMax();
+        else
+            GetComponentInParent<G_PlayerMove>().MinMax();
+
     }
 }

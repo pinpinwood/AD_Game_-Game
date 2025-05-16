@@ -8,14 +8,14 @@ public class G_PlayerMove : MonoBehaviour
     [SerializeField] private float _acceleration = 5f;
     [SerializeField] private float _deceleration = 5f;
     [SerializeField] private float _maxspeed = 20f;
-    float minX = -1.3f;
-    float maxX = 4.9f;
+    [SerializeField] private float minX = -4.9f;
+    [SerializeField] private float maxX = 4.9f;
 
     private Rigidbody _rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
-        _rb=GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -28,5 +28,15 @@ public class G_PlayerMove : MonoBehaviour
         newPos.x = Mathf.Clamp(newPos.x, minX, maxX);
 
         transform.position = newPos;
+    }
+    public void largeMax()
+    {
+        minX = -4.9f;
+        maxX = 4.9f;
+    }
+    public void MinMax()
+    {
+        minX = -3.2f;
+        maxX = 3.2f;
     }
 }

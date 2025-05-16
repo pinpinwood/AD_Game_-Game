@@ -125,7 +125,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 2615936164793267848, guid: f765074ef2504754280b987166cf8ead, type: 3}
   projectileSpawn: {fileID: 7852593605027821894}
   projectileSpeed: 30
-  lifeTime: 0.3
+  lifeTime: 0.5
 --- !u!1 &1937327394527714172
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,5 +294,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 124
+  m_Constraints: 126
   m_CollisionDetection: 0

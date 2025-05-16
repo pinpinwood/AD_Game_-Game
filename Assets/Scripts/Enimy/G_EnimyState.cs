@@ -16,8 +16,7 @@ public class G_EnimyState:MonoBehaviour
         {
             //Debug.Log("You Dead");
             G_PlayerState g_Player = other.gameObject.GetComponentInParent<G_PlayerState>();
-                g_Player.RemoveMembers(-1);
-            Destroy(this.gameObject);
+                g_Player.RemoveMembers(1);
         }
     }
 }

@@ -17,5 +17,11 @@ public class G_BulletOnHit : MonoBehaviour
             //print("add!");
             Destroy(this.gameObject);
         }
+        if (other.tag =="Enemy")
+        {
+            Destroy(other.gameObject);
+            Destroy(this.gameObject);
+        }
+
     }
 }
