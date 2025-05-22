@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public class G_WallChangeState : MonoBehaviour
 {
     [SerializeField] G_WallState G_State;
     [SerializeField] int speed=8;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {

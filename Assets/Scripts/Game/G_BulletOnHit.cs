@@ -7,7 +7,7 @@ public class G_BulletOnHit : MonoBehaviour
     [Header("¤l¼u³]©w")]
     public float range;
     public ParticleSystem projectileEffect;
-    
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Wall")
@@ -22,6 +22,5 @@ public class G_BulletOnHit : MonoBehaviour
             Destroy(other.gameObject);
             Destroy(this.gameObject);
         }
-
     }
 }

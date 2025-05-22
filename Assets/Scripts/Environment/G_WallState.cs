@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static UnityEngine.Rendering.DebugUI;
+using System.Collections.Generic;
 
 public class G_WallState : MonoBehaviour
 {
@@ -13,23 +14,36 @@ public class G_WallState : MonoBehaviour
     [Header("牆壁UI(字體）")]
     [SerializeField] private TextMeshProUGUI valueText;
 
+    private float hitCooldown = 0.2f;
+    private float lastHitTime = -1f;
+
     private void Awake()
     {
-        AddWallint();
+       // AddWallint();
+        lastHitTime = Time.time;
     }
 
     public void SetValue(int newValue)
     {
         G_Wallint = newValue;
-        AddWallint();
+        UpdateWallText();
     }
 
     public void AddWallint()
     {
-        G_Wallint++;
-        if (G_Wallint > 0)
+        float currentTime = Time.time;
+        if (currentTime - lastHitTime >= hitCooldown)
+        {
+            lastHitTime = currentTime;
+            G_Wallint++;
+            UpdateWallText();
+        }
+    }
+    private void UpdateWallText()
+    {
+        if (G_Wallint >= 0)
             valueText.text = "+" + G_Wallint.ToString();
         else
-            valueText.text = G_Wallint.ToString(); // 負數自帶 -
+            valueText.text = G_Wallint.ToString();
     }
 }
