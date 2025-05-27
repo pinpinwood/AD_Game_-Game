@@ -24,6 +24,7 @@ public class G_WallChangeState : MonoBehaviour
         if (other.tag == "Player")
         {
             G_PlayerState g_Player = other.GetComponentInParent<G_PlayerState>();
+            //Debug.Log(G_State.G_Wallint);
             if(G_State.G_Wallint>=0)
                 g_Player.AddMembers(G_State.G_Wallint);
             else

@@ -21,11 +21,15 @@ public class G_WallState : MonoBehaviour
     {
        // AddWallint();
         lastHitTime = Time.time;
+        G_Wallint = Random.Range(-4, 4);
+        SetValue(G_Wallint);
     }
 
     public void SetValue(int newValue)
     {
         G_Wallint = newValue;
+        if (G_Wallint < 0)
+            G_isNegative = true;
         UpdateWallText();
     }
 
@@ -42,7 +46,10 @@ public class G_WallState : MonoBehaviour
     private void UpdateWallText()
     {
         if (G_Wallint >= 0)
+        {
             valueText.text = "+" + G_Wallint.ToString();
+            G_isNegative = false;
+        }       
         else
             valueText.text = G_Wallint.ToString();
     }
