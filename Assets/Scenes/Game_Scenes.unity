@@ -760,15 +760,15 @@ MonoBehaviour:
   - {fileID: 583684450}
   G_EnemyPrefab: {fileID: 925359617423844257, guid: e10ffb5f82b1dc64eaa6be082cf05907, type: 3}
   G_WallPrefab: {fileID: 3122158202600704804, guid: 2be2731f1cb69d24c88196fbac41e70e, type: 3}
-  G_MaxWallCount: 2
+  G_MaxWallCount: 1
   G_MaxItemWallCount: 1
   G_MinEnemies: 3
   G_MaxEnemies: 7
-  G_EnemyChance: 0.9
+  G_EnemyChance: 0.6
   G_WallChance: 0.6
   G_ItemWallChance: 0.3
-  G_TotalSlots: 7
-  G_SlotSpacing: 2
+  G_TotalSlots: 2
+  G_SlotSpacing: 1
 --- !u!1 &993281653
 GameObject:
   m_ObjectHideFlags: 0
