@@ -764,7 +764,7 @@ MonoBehaviour:
   G_MaxItemWallCount: 1
   G_MinEnemies: 3
   G_MaxEnemies: 7
-  G_EnemyChance: 0.6
+  G_EnemyChance: 0.8
   G_WallChance: 0.6
   G_ItemWallChance: 0.3
   G_TotalSlots: 2
