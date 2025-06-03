@@ -21,6 +21,17 @@ public class G_PlayerState : MonoBehaviour
     [SerializeField] private float G_Spacing = 1.5f;
     [SerializeField] private float G_UniformScale = 0.7f;
 
+    [Header("武器更換設定")]
+    [SerializeField] private GameObject[] allWeapons;
+    private int currentWeaponIndex = 0;
+    private int currentEvolutionLevel = 0;
+
+    public enum G_ItemType
+    {
+        ChangeWeapon,
+        EvolveForm
+    }
+
     void Start()
     {
         // 假設一開始就有一個角色
@@ -82,5 +93,35 @@ public class G_PlayerState : MonoBehaviour
         else
             GetComponentInParent<G_PlayerMove>().MinMax();
 
+    }
+    public void SwitchWeapon()
+    {
+        // 可透過 enum 或 index 切換不同武器邏輯
+        currentWeaponIndex = (currentWeaponIndex + 1) % allWeapons.Length;
+        EquipWeapon(allWeapons[currentWeaponIndex]);
+
+        Debug.Log("Weapon switched to: " + currentWeaponIndex);
+    }
+
+    public void Evolve()
+    {
+        currentEvolutionLevel++;
+        ApplyEvolution(currentEvolutionLevel);
+
+        Debug.Log("Player evolved to level: " + currentEvolutionLevel);
+    }
+
+    private void EquipWeapon(GameObject weapon)
+    {
+        // 假設你要啟用新的武器，並關掉其他的
+        foreach (GameObject w in allWeapons)
+            w.SetActive(false);
+
+        weapon.SetActive(true);
+    }
+    private void ApplyEvolution(int level)
+    {
+        // 根據 level 做進化邏輯
+        // 例如：增加血量、變小、變快等等
     }
 }

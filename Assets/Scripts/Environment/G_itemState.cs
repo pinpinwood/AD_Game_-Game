@@ -8,42 +8,50 @@ public class G_itemState : MonoBehaviour
 
     [Header("牆壁UI(字體）")]
     [SerializeField] private TextMeshProUGUI valueText;
+    
+    public G_ItemType G_ItemType;
+    private int HP;
 
-    private float hitCooldown = 0.1f;
-    private float lastHitTime = -1f;
 
-    private void Awake()
+    private void Start()
     {
-        // AddWallint();
-        lastHitTime = Time.time;
-        G_Wallint = Random.Range(1, 4);
-        SetValue(G_Wallint);
-    }
 
-    public void SetValue(int newValue)
-    {
-        G_Wallint = newValue;
-        UpdateWallText();
-    }
-
-    public void AddWallint()
-    {
-        float currentTime = Time.time;
-        if (currentTime - lastHitTime >= hitCooldown)
+        // 根據道具類型設定對應血量
+        switch (G_ItemType)
         {
-            lastHitTime = currentTime;
-            G_Wallint++;
-            UpdateWallText();
+            case G_ItemType.RapidFire:
+                HP = 100;
+                break;
+            case G_ItemType.SpreadGun:
+                HP = 50;
+                break;
+            case G_ItemType.Evolve:
+                HP = 40; // 你可以自訂
+                break;
+            default:
+                HP = 20;
+                break;
         }
     }
-    private void UpdateWallText()
+
+    public void TakeDamage(int damage)
     {
-        if (G_Wallint >= 0)
+        HP -= damage;
+        if (HP <= 0)
         {
-            valueText.text = "+" + G_Wallint.ToString();
-            G_isNegative = false;
+            TriggerEffect();
+            Destroy(gameObject);
         }
-        else
-            valueText.text = G_Wallint.ToString();
     }
+
+    private void TriggerEffect()
+    {
+        G_GunState player = FindObjectOfType<G_GunState>();
+        if (player != null)
+        {
+            player.ApplyItem(G_ItemType);
+        }
+
+        Debug.Log("取得道具：" + G_ItemType.ToString());
+    }   
 }
